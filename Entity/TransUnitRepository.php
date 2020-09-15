@@ -24,6 +24,7 @@ class TransUnitRepository extends EntityRepository
         return $this->createQueryBuilder('tu')
             ->select('te.locale, tu.domain')
             ->leftJoin('tu.translations', 'te')
+            ->where('te.locale IS NOT NULL')
             ->addGroupBy('te.locale')
             ->addGroupBy('tu.domain')
             ->getQuery()
