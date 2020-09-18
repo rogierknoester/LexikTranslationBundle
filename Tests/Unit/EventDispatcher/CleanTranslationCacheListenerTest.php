@@ -3,8 +3,8 @@
 namespace Lexik\Bundle\TranslationBundle\Tests\Unit\EventDispatcher;
 
 use Lexik\Bundle\TranslationBundle\EventDispatcher\CleanTranslationCacheListener;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Translation\MessageSelector;
 use Symfony\Component\Finder\Finder;
@@ -68,7 +68,7 @@ class CleanTranslationCacheListenerTest extends TestCase
 
     private function getEvent(Request $request)
     {
-        return new GetResponseEvent($this->getMock('Symfony\Component\HttpKernel\HttpKernelInterface'), $request, HttpKernelInterface::MASTER_REQUEST);
+        return new RequestEvent($this->getMock('Symfony\Component\HttpKernel\HttpKernelInterface'), $request, HttpKernelInterface::MASTER_REQUEST);
     }
 
     private function countFiles($lastUpdateTime)

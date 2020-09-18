@@ -4,7 +4,7 @@ namespace Lexik\Bundle\TranslationBundle\EventDispatcher;
 
 use Lexik\Bundle\TranslationBundle\Manager\LocaleManager;
 use Lexik\Bundle\TranslationBundle\Storage\StorageInterface;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Finder\Finder;
 
@@ -56,10 +56,7 @@ class CleanTranslationCacheListener
         $this->cacheInterval = $cacheInterval;
     }
 
-    /**
-     * @param GetResponseEvent $event
-     */
-    public function onKernelRequest(GetResponseEvent $event)
+    public function onKernelRequest(RequestEvent $event)
     {
         if ($event->isMasterRequest() && $this->isCacheExpired()) {
             $lastUpdateTime = $this->storage->getLatestUpdatedAt();
