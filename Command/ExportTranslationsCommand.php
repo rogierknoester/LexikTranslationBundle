@@ -71,6 +71,8 @@ class ExportTranslationsCommand extends Command
         } else {
             $this->output->writeln('<comment>No translation\'s files in the database.</comment>');
         }
+
+        return self::SUCCESS;
     }
 
     /**
@@ -95,7 +97,7 @@ class ExportTranslationsCommand extends Command
      */
     protected function exportFile(FileInterface $file)
     {
-        $rootDir = $this->input->getOption('export-path') ? $this->input->getOption('export-path') . '/' : $this->getContainer()->getParameter('kernel.project_dir');
+        $rootDir = $this->input->getOption('export-path') ? $this->input->getOption('export-path') . '/' : $this->container->getParameter('kernel.project_dir');
 
         $this->output->writeln(sprintf('<info># Exporting "%s/%s":</info>', $file->getPath(), $file->getName()));
         $override = $this->input->getOption('override');
@@ -111,7 +113,7 @@ class ExportTranslationsCommand extends Command
             $onlyUpdated = !$override;
         }
 
-        $translations = $this->getContainer()
+        $translations = $this->container
             ->get('lexik_translation.translation_storage')
             ->getTranslationsFromFile($file, $onlyUpdated);
 
