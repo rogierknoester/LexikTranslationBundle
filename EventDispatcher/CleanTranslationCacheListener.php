@@ -5,7 +5,7 @@ namespace Lexik\Bundle\TranslationBundle\EventDispatcher;
 use Lexik\Bundle\TranslationBundle\Manager\LocaleManager;
 use Lexik\Bundle\TranslationBundle\Storage\StorageInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Finder\Finder;
 
 /**
@@ -98,7 +98,7 @@ class CleanTranslationCacheListener
         }
         if (!\is_dir($cache_dir)) {
             \mkdir($cache_dir);
-        }        
+        }
         if (!\file_exists($cache_file)) {
             \touch($cache_file);
             return true;
